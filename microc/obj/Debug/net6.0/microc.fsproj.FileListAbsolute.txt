@@ -1,0 +1,4 @@
+C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\microc.fsproj.AssemblyReference.cache
+C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\microc.AssemblyInfoInputs.cache
+C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\microc.AssemblyInfo.fs
+C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\microc.fsproj.CoreCompileInputs.cache

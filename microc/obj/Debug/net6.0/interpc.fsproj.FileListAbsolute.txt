@@ -1,3 +1,7 @@
+C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\interpc.fsproj.AssemblyReference.cache
+C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\interpc.AssemblyInfoInputs.cache
+C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\interpc.AssemblyInfo.fs
+C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\interpc.fsproj.CoreCompileInputs.cache
 C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\bin\Debug\net6.0\interpc.exe
 C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\bin\Debug\net6.0\interpc.deps.json
 C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\bin\Debug\net6.0\interpc.runtimeconfig.json
@@ -18,10 +22,6 @@ C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\bin\Debug\net6.0\ru\F
 C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\bin\Debug\net6.0\tr\FSharp.Core.resources.dll
 C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\bin\Debug\net6.0\zh-Hans\FSharp.Core.resources.dll
 C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\bin\Debug\net6.0\zh-Hant\FSharp.Core.resources.dll
-C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\interpc.fsproj.AssemblyReference.cache
-C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\interpc.AssemblyInfoInputs.cache
-C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\interpc.AssemblyInfo.fs
-C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\interpc.fsproj.CoreCompileInputs.cache
 C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\interpc.fsproj.CopyComplete
 C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\interpc.dll
 C:\code\Clion\CompilersPrinciplesTechniquesAndTools\microc\obj\Debug\net6.0\interpc.pdb
