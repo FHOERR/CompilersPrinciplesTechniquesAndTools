@@ -351,6 +351,25 @@ and eval e locEnv gloEnv store : int * store =
             | _ -> failwith ("unknown primitive " + ope)
 
         (res, store2)
+        
+    | Prim3(ope, acc) ->
+        let (loc, store1) = access acc locEnv gloEnv store
+        let (i1) = getSto store1 loc
+        match ope with
+            | "I++" ->
+                let res = i1 + 1
+                i1, setSto store1 loc res
+            | "I--" ->
+                let res = i1 - 1
+                i1, setSto store1 loc res
+            | "++I" ->
+                let res = i1 + 1
+                res, setSto store1 loc res
+            | "--I" ->
+                let res = i1 - 1
+                res, setSto store1 loc res
+            | _ -> failwith ("unknown primitive " + ope)
+
     | Andalso (e1, e2) ->
         let (i1, store1) as res = eval e1 locEnv gloEnv store
 

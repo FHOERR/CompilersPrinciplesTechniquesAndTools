@@ -263,6 +263,22 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
              | ">" -> [ SWAP; LT ]
              | "<=" -> [ SWAP; LT; NOT ]
              | _ -> raise (Failure "unknown primitive 2"))
+    | Prim3 (ope, e) ->
+        (match ope with
+            | "I++" ->
+                cAccess e varEnv funEnv
+                 @[ DUP;LDI;SWAP;DUP;LDI;CSTI 1; ADD;STI;INCSP -1]
+            | "I--" ->
+                cAccess e varEnv funEnv
+                 @[ DUP;LDI;SWAP;DUP;LDI;CSTI -1; ADD;STI;INCSP -1]
+            | "++I" ->
+                cAccess e varEnv funEnv
+                 @[ DUP;LDI; CSTI 1; ADD;STI]
+            | "--I" ->
+                cAccess e varEnv funEnv
+                 @[ DUP;LDI; CSTI -1; ADD;STI]
+            | _ -> raise (Failure "unknown primitive 4")
+            )
     | Andalso (e1, e2) ->
         let labend = newLabel ()
         let labfalse = newLabel ()
