@@ -215,6 +215,18 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | Return None -> [ RET(snd varEnv - 1) ]
     | Return (Some e) -> cExpr e varEnv funEnv @ [ RET(snd varEnv) ]
 
+    | DoWhile (body, e) ->
+        let labbegin = newLabel ()
+        let labtest = newLabel ()
+
+        cStmt body varEnv funEnv
+            @[ GOTO labtest ]
+                @[ Label labbegin ]
+                @ cStmt body varEnv funEnv
+                @ [ Label labtest ]
+                @ cExpr e varEnv funEnv
+                @ [ IFNZRO labbegin ]
+                
 and cStmtOrDec stmtOrDec (varEnv: VarEnv) (funEnv: FunEnv) : VarEnv * instr list =
     match stmtOrDec with
     | Stmt stmt -> (varEnv, cStmt stmt varEnv funEnv)
