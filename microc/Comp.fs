@@ -167,6 +167,18 @@ let x86patch code =
    * funEnv  is the global function environment
 *)
 
+let mutable lablist : label list = []
+
+let rec headlab labs =
+    match labs with
+        | lab :: tr -> lab
+        | []        -> failwith "Error: unknown break"
+
+let rec dellab labs =
+    match labs with
+        | lab :: tr -> tr
+        | []        -> []
+
 let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     match stmt with
     | If (e, stmt1, stmt2) ->
@@ -182,11 +194,12 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | While (e, body) ->
         let labbegin = newLabel ()
         let labtest = newLabel ()
-
+        let labend = newLabel ()
+        lablist <- [labend; labtest; labbegin]
         [ GOTO labtest; Label labbegin ]
         @ cStmt body varEnv funEnv
           @ [ Label labtest ]
-            @ cExpr e varEnv funEnv @ [ IFNZRO labbegin ]
+            @ cExpr e varEnv funEnv @ [ IFNZRO labbegin; Label labend ]
     | For (e1, e2, e3, body) ->
         let labbegin = newLabel()
         let labtest  = newLabel()
@@ -197,6 +210,9 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
                     @ cExpr e3 varEnv funEnv @ [INCSP -1]
                         @ [Label labtest]
                             @ cExpr e2 varEnv funEnv @ [IFNZRO labbegin]
+    | Break ->
+        let labend = headlab lablist
+        [GOTO labend]
     | Expr e -> cExpr e varEnv funEnv @ [ INCSP -1 ]
     | Block stmts ->
 

@@ -1,27 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\14598\\Desktop\\C+\\CompilersPrinciplesTechniquesAndTools\\microc\\microc.fsproj": {}
+    "C:\\code\\Clion\\CompilersPrinciplesTechniquesAndTools\\microc\\microc.fsproj": {}
   },
   "projects": {
-    "C:\\Users\\14598\\Desktop\\C+\\CompilersPrinciplesTechniquesAndTools\\microc\\microc.fsproj": {
+    "C:\\code\\Clion\\CompilersPrinciplesTechniquesAndTools\\microc\\microc.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\14598\\Desktop\\C+\\CompilersPrinciplesTechniquesAndTools\\microc\\microc.fsproj",
+        "projectUniqueName": "C:\\code\\Clion\\CompilersPrinciplesTechniquesAndTools\\microc\\microc.fsproj",
         "projectName": "microc",
-        "projectPath": "C:\\Users\\14598\\Desktop\\C+\\CompilersPrinciplesTechniquesAndTools\\microc\\microc.fsproj",
-        "packagesPath": "C:\\Users\\14598\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\14598\\Desktop\\C+\\CompilersPrinciplesTechniquesAndTools\\microc\\obj\\",
+        "projectPath": "C:\\code\\Clion\\CompilersPrinciplesTechniquesAndTools\\microc\\microc.fsproj",
+        "packagesPath": "C:\\Users\\16771\\.nuget\\packages\\",
+        "outputPath": "C:\\code\\Clion\\CompilersPrinciplesTechniquesAndTools\\microc\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\14598\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\16771\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files\\dotnet\\sdk\\6.0.406\\FSharp\\library-packs": {},
-          "https://nuget.cdn.azure.cn/v3/index.json": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files (x86)\\dotnet\\sdk\\7.0.202\\FSharp\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
@@ -37,7 +43,7 @@
             "FSharp.Core": {
               "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
               "target": "Package",
-              "version": "[6.0.7, )",
+              "version": "[7.0.200, )",
               "generatePathProperty": true
             },
             "FsLexYacc": {
@@ -57,12 +63,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x86",
+              "version": "[6.0.15, 6.0.15]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

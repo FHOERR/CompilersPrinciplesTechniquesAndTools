@@ -47,6 +47,7 @@ type token =
   | WHILE
   | FOR
   | DO
+  | BREAK
   | CSTSTRING of (string)
   | NAME of (string)
   | CSTINT of (int)
@@ -98,6 +99,7 @@ type tokenId =
     | TOKEN_WHILE
     | TOKEN_FOR
     | TOKEN_DO
+    | TOKEN_BREAK
     | TOKEN_CSTSTRING
     | TOKEN_NAME
     | TOKEN_CSTINT
