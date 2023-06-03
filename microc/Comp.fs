@@ -315,6 +315,18 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
                 Label labend ]
     | Call (f, es) -> callfun f es varEnv funEnv
 
+    | AssignPrim (ope, e1, e2) ->
+        cAccess e1 varEnv funEnv
+         @ [DUP; LDI]
+            @ cExpr e2 varEnv funEnv
+                @ (match ope with
+                    | "+=" -> [ ADD; STI ]
+                    | "-=" -> [ SUB; STI ]
+                    | "*=" -> [ MUL; STI ]
+                    | "/=" -> [ DIV; STI ]
+                    | "%=" -> [ MOD; STI ]
+                    | _ -> raise (Failure "unknown AssignPrim"))
+
 (* Generate code to access variable, dereference pointer or index array.
    The effect of the compiled code is to leave an lvalue on the stack.   *)
 

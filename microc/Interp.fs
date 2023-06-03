@@ -396,6 +396,29 @@ and eval e locEnv gloEnv store : int * store =
             eval e2 locEnv gloEnv store1
     | Call (f, es) -> callfun f es locEnv gloEnv store
 
+    | Prim4 ( e1, e2, e3) -> 
+        let (i1, store1) = eval e1 locEnv gloEnv store
+        let (i2, store2) = eval e2 locEnv gloEnv store1
+        let (i3, store3) = eval e2 locEnv gloEnv store2
+        let res = if i1<>0 then i2 else i3
+        (res, store3)
+
+
+    | AssignPrim(ope, acc, e) ->
+        let (loc, store1) = access acc locEnv gloEnv store
+        let tmp = getSto store1 loc
+        let (res, store2) = eval e locEnv gloEnv store1
+        let num = 
+            match ope with
+            | "+=" ->  tmp + res
+            | "-=" ->  tmp - res
+            | "*=" ->  tmp * res
+            | "/=" ->  tmp / res
+            | "%=" ->  tmp % res
+            | _ -> failwith ("unknown primitive " + ope)
+        (num, setSto store2 loc num)
+
+        
 and access acc locEnv gloEnv store : int * store =
     match acc with
     | AccVar x -> (lookup (fst locEnv) x, store)
