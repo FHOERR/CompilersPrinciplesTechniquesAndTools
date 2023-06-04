@@ -308,7 +308,23 @@ let rec exec stmt (locEnv: locEnv) (gloEnv: gloEnv) (store: store) : store =
         
         loop (exec body locEnv gloEnv store)
 
+    | Switch(e, body) ->
+        let (v, store0) = eval e locEnv gloEnv store
+        let rec carry list = 
+            match list with
+            | Case(e1, body1) :: next ->
+                let (v1, store1) = eval e1 locEnv gloEnv store0
+                if v1 = v then exec body1 locEnv gloEnv store1
+                else carry next
+            | Default(body) :: over ->
+                exec body locEnv gloEnv store0
+            | [] -> store0
+            | _ -> store0
 
+        (carry body)
+
+    | Case (e, body) -> exec body locEnv gloEnv store
+    | Default(body) -> exec body locEnv gloEnv store
 and stmtordec stmtordec locEnv gloEnv store =
     match stmtordec with
     | Stmt stmt -> (locEnv, exec stmt locEnv gloEnv store)

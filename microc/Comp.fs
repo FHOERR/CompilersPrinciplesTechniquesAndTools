@@ -242,6 +242,33 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
                 @ [ Label labtest ]
                 @ cExpr e varEnv funEnv
                 @ [ IFNZRO labbegin ]
+    | Switch(e, cases) ->
+        let rec searchcases c =
+            match c with
+            | Case (e, body) :: tail ->
+                let labend = newLabel ()
+                let labfin = newLabel ()
+
+                [DUP]
+                    @ cExpr e varEnv funEnv
+                        @ [EQ]
+                            @ [ IFZERO labend ]
+                                @ cStmt body varEnv funEnv
+                                    @ [ GOTO labfin ]
+                                        @ [ Label labend ]
+                                            @ searchcases tail
+                                                @ [ Label labfin ]
+            | Default body :: [] ->
+                cStmt body varEnv funEnv
+            | [] -> []
+
+        cExpr e varEnv funEnv
+            @ searchcases cases
+                @ [ INCSP -1 ]
+
+    | Case (e, body) -> cStmt body varEnv funEnv
+    | Default (body) -> cStmt body varEnv funEnv
+  
                 
 and cStmtOrDec stmtOrDec (varEnv: VarEnv) (funEnv: FunEnv) : VarEnv * instr list =
     match stmtOrDec with
