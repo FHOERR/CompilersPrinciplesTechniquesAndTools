@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "5BcX9d7J3N4EtFIIVaQeSHonzzkGQmQcFZpSo+tXu/Vde86P9rg7iDR3SO+Jc1tVVeZdILaJCWmIxZ+Wu0FSWw==",
+  "dgSpecHash": "4aGQc0XGBqDVDQpNwVKQL2Pvkt0xjEFrC58nVq4bAQYviV+q1MneKN0ZpDwpKK4FP6bekZ0v/en2JWHpsoE7TA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\14598\\Desktop\\C+\\CompilersPrinciplesTechniquesAndTools\\microc\\interpc.fsproj",
+  "projectFilePath": "C:\\code\\Clion\\CompilersPrinciplesTechniquesAndTools\\microc\\interpc.fsproj",
   "expectedPackageFiles": [
-    "C:\\Users\\14598\\.nuget\\packages\\fsharp.core\\6.0.7\\fsharp.core.6.0.7.nupkg.sha512",
-    "C:\\Users\\14598\\.nuget\\packages\\fslexyacc\\10.2.0\\fslexyacc.10.2.0.nupkg.sha512",
-    "C:\\Users\\14598\\.nuget\\packages\\fslexyacc.runtime\\10.2.0\\fslexyacc.runtime.10.2.0.nupkg.sha512"
+    "C:\\Users\\16771\\.nuget\\packages\\fsharp.core\\7.0.200\\fsharp.core.7.0.200.nupkg.sha512",
+    "C:\\Users\\16771\\.nuget\\packages\\fslexyacc\\10.2.0\\fslexyacc.10.2.0.nupkg.sha512",
+    "C:\\Users\\16771\\.nuget\\packages\\fslexyacc.runtime\\10.2.0\\fslexyacc.runtime.10.2.0.nupkg.sha512",
+    "C:\\Users\\16771\\.nuget\\packages\\microsoft.netcore.app.host.win-x86\\6.0.15\\microsoft.netcore.app.host.win-x86.6.0.15.nupkg.sha512"
   ],
   "logs": []
 }

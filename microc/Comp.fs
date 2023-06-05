@@ -213,6 +213,10 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | Break ->
         let labend = headlab lablist
         [GOTO labend]
+    | Continue ->
+        let lablist = dellab lablist
+        let labbegin = headlab lablist
+        [GOTO labbegin]
     | Expr e -> cExpr e varEnv funEnv @ [ INCSP -1 ]
     | Block stmts ->
 

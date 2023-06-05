@@ -47,6 +47,7 @@ and stmt =
   | Case of expr * stmt              (* Case                        *)
   | Default of stmt                  (* Default                     *)
   | Break                            (* Break                       *)
+  | Continue                         (* Continue                    *)
   // 语句块内部，可以是变量声明 或语句的列表
 
 and stmtordec =                                                    
