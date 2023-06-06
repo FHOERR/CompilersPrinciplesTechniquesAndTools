@@ -52,6 +52,7 @@ type token =
   | CASE
   | DEFAULT
   | CONTINUE
+  | UNTIL
   | CSTSTRING of (string)
   | NAME of (string)
   | CSTINT of (int)
@@ -108,6 +109,7 @@ type tokenId =
     | TOKEN_CASE
     | TOKEN_DEFAULT
     | TOKEN_CONTINUE
+    | TOKEN_UNTIL
     | TOKEN_CSTSTRING
     | TOKEN_NAME
     | TOKEN_CSTINT

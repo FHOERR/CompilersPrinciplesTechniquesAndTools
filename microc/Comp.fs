@@ -200,6 +200,15 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         @ cStmt body varEnv funEnv
           @ [ Label labtest ]
             @ cExpr e varEnv funEnv @ [ IFNZRO labbegin; Label labend ]
+    | Until (e, body) ->
+        let labbegin = newLabel ()
+        let labtest = newLabel ()
+        let labend = newLabel ()
+        lablist <- [labend; labtest; labbegin]
+        [ GOTO labtest; Label labbegin ]
+        @ cStmt body varEnv funEnv
+          @ [ Label labtest ]
+            @ cExpr e varEnv funEnv @ [ IFZERO labbegin; Label labend ]
     | For (e1, e2, e3, body) ->
         let labbegin = newLabel()
         let labtest  = newLabel()

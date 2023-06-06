@@ -48,6 +48,7 @@ and stmt =
   | Default of stmt                  (* Default                     *)
   | Break                            (* Break                       *)
   | Continue                         (* Continue                    *)
+  | Until of expr * stmt             (* Until                       *)
   // 语句块内部，可以是变量声明 或语句的列表
 
 and stmtordec =                                                    
