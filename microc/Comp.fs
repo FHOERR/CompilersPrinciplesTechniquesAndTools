@@ -167,24 +167,48 @@ let x86patch code =
    * funEnv  is the global function environment
 *)
 
-let mutable lablist : label list = []
+// 存储labend的栈
+let mutable endlist : label list = []
+// 存储labbegin的栈
+let mutable beglist : label list = []
 
-let rec headlab labs =
+// endlist顶端元素入栈
+let rec pushendlist labs =
+    endlist <- labs :: endlist
+    []
+
+// beglist顶端元素入栈
+let rec pushbeglist labs =
+    beglist <- labs :: beglist
+    []
+
+// endlist顶端元素出栈
+let rec popendlist () =
+    endlist <-
+        match endlist with
+            | lab :: tr -> tr
+            | []        -> failwith "Error: empty loop"
+    []
+
+// beglist顶端元素出栈
+let rec popbeglist () =
+    beglist <-
+        match beglist with
+            | lab :: tr -> tr
+            | []        -> failwith "Error: empty loop"
+    []
+
+// 获取labs栈顶元素(要记得pop)
+let rec toplab labs =
     match labs with
         | lab :: tr -> lab
-        | []        -> failwith "Error: unknown break"
-
-let rec dellab labs =
-    match labs with
-        | lab :: tr -> tr
-        | []        -> []
+        | []        -> failwith "Error: unknown break/continue"
 
 let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     match stmt with
     | If (e, stmt1, stmt2) ->
         let labelse = newLabel ()
         let labend = newLabel ()
-
         cExpr e varEnv funEnv
         @ [ IFZERO labelse ]
           @ cStmt stmt1 varEnv funEnv
@@ -195,36 +219,40 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         let labbegin = newLabel ()
         let labtest = newLabel ()
         let labend = newLabel ()
-        lablist <- [labend; labtest; labbegin]
+        pushbeglist labbegin
+        pushendlist labend
         [ GOTO labtest; Label labbegin ]
         @ cStmt body varEnv funEnv
           @ [ Label labtest ]
-            @ cExpr e varEnv funEnv @ [ IFNZRO labbegin; Label labend ]
+            @ cExpr e varEnv funEnv @ [ IFNZRO labbegin ] @ [ Label labend ] @ popbeglist () @ popendlist ()
     | Until (e, body) ->
         let labbegin = newLabel ()
         let labtest = newLabel ()
         let labend = newLabel ()
-        lablist <- [labend; labtest; labbegin]
+        pushbeglist labbegin
+        pushendlist labend
         [ GOTO labtest; Label labbegin ]
         @ cStmt body varEnv funEnv
           @ [ Label labtest ]
-            @ cExpr e varEnv funEnv @ [ IFZERO labbegin; Label labend ]
+            @ cExpr e varEnv funEnv @ [ IFZERO labbegin ] @ [ Label labend ] @ popbeglist () @ popendlist ()
     | For (e1, e2, e3, body) ->
         let labbegin = newLabel()
         let labtest  = newLabel()
-
+        let labend = newLabel()
+        pushbeglist labbegin
+        pushendlist labend
         cExpr e1 varEnv funEnv @ [INCSP -1]
             @ [GOTO labtest; Label labbegin]
                 @ cStmt body varEnv funEnv
                     @ cExpr e3 varEnv funEnv @ [INCSP -1]
                         @ [Label labtest]
                             @ cExpr e2 varEnv funEnv @ [IFNZRO labbegin]
+                                @ [ Label labend ] @ popbeglist () @ popendlist ()
     | Break ->
-        let labend = headlab lablist
+        let labend = toplab endlist
         [GOTO labend]
     | Continue ->
-        let lablist = dellab lablist
-        let labbegin = headlab lablist
+        let labbegin = toplab beglist
         [GOTO labbegin]
     | Expr e -> cExpr e varEnv funEnv @ [ INCSP -1 ]
     | Block stmts ->
@@ -247,7 +275,9 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | DoWhile (body, e) ->
         let labbegin = newLabel ()
         let labtest = newLabel ()
-
+        let labend = newLabel ()
+        pushbeglist labbegin
+        pushendlist labend
         cStmt body varEnv funEnv
             @[ GOTO labtest ]
                 @[ Label labbegin ]
@@ -255,6 +285,7 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
                 @ [ Label labtest ]
                 @ cExpr e varEnv funEnv
                 @ [ IFNZRO labbegin ]
+                @ [ Label labend ] @ popbeglist () @ popendlist ()
     | Switch(e, cases) ->
         let rec searchcases c =
             match c with

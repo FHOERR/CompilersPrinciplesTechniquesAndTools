@@ -9,4 +9,11 @@ void main (int n){
         print a;
         a = a + 1;
     }
+    for(a;a > 2;a = a - 1){
+        if(a == 8){
+            a = a - 2;
+            continue;
+        }
+        print a;
+    }
 }
