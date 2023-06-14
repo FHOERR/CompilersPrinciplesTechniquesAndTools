@@ -1,19 +1,18 @@
-void main (int n){
+void main (){
     int a;
-    a = n;
-    while (a < 10) {
-        if (a == 8) {
-            a = a + 1;
+    a = 1;
+    for(a; a < 5;a = a + 1){
+        print a;
+        if(a % 2 == 1) {
             continue;
         }
-        print a;
-        a = a + 1;
-    }
-    for(a;a > 2;a = a - 1){
-        if(a == 8){
-            a = a - 2;
-            continue;
+        int b;
+        b = a;
+        for(b; b < 8; b = b + 1){
+            if(b % 2 == 1) {
+                continue;
+            }
+            print b * -1;
         }
-        print a;
     }
 }

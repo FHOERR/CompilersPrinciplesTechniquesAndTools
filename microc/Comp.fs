@@ -219,7 +219,7 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         let labbegin = newLabel ()
         let labtest = newLabel ()
         let labend = newLabel ()
-        pushbeglist labbegin
+        pushbeglist labtest
         pushendlist labend
         [ GOTO labtest; Label labbegin ]
         @ cStmt body varEnv funEnv
@@ -229,7 +229,7 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         let labbegin = newLabel ()
         let labtest = newLabel ()
         let labend = newLabel ()
-        pushbeglist labbegin
+        pushbeglist labtest
         pushendlist labend
         [ GOTO labtest; Label labbegin ]
         @ cStmt body varEnv funEnv
@@ -238,16 +238,18 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | For (e1, e2, e3, body) ->
         let labbegin = newLabel()
         let labtest  = newLabel()
+        let labnext = newLabel()
         let labend = newLabel()
-        pushbeglist labbegin
+        pushbeglist labnext
         pushendlist labend
         cExpr e1 varEnv funEnv @ [INCSP -1]
             @ [GOTO labtest; Label labbegin]
                 @ cStmt body varEnv funEnv
-                    @ cExpr e3 varEnv funEnv @ [INCSP -1]
-                        @ [Label labtest]
-                            @ cExpr e2 varEnv funEnv @ [IFNZRO labbegin]
-                                @ [ Label labend ] @ popbeglist () @ popendlist ()
+                    @ [ Label labnext ]
+                        @ cExpr e3 varEnv funEnv @ [INCSP -1]
+                            @ [Label labtest]
+                                @ cExpr e2 varEnv funEnv @ [IFNZRO labbegin]
+                                    @ [ Label labend ] @ popbeglist () @ popendlist ()
     | Break ->
         let labend = toplab endlist
         [GOTO labend]
@@ -276,7 +278,7 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         let labbegin = newLabel ()
         let labtest = newLabel ()
         let labend = newLabel ()
-        pushbeglist labbegin
+        pushbeglist labtest
         pushendlist labend
         cStmt body varEnv funEnv
             @[ GOTO labtest ]
