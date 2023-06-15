@@ -37,6 +37,10 @@ type token =
   | MODAS
   | BITLEFT
   | BITRIGHT
+  | BITNOT
+  | BITOR
+  | BITXOR
+  | BITAND
   | CHAR
   | ELSE
   | IF
@@ -96,6 +100,10 @@ type tokenId =
     | TOKEN_MODAS
     | TOKEN_BITLEFT
     | TOKEN_BITRIGHT
+    | TOKEN_BITNOT
+    | TOKEN_BITOR
+    | TOKEN_BITXOR
+    | TOKEN_BITAND
     | TOKEN_CHAR
     | TOKEN_ELSE
     | TOKEN_IF

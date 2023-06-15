@@ -361,6 +361,7 @@ and eval e locEnv gloEnv store : int * store =
         let res =
             match ope with
             | "!" -> if i1 = 0 then 1 else 0
+            | "~~~" -> ~~~ i1
             | "printi" ->
                 (printf "%d " i1
                  i1)
@@ -401,6 +402,9 @@ and eval e locEnv gloEnv store : int * store =
                         tmpNum <- tmpNum / 2
                     tmpNum
                 bitrightc(i1, i2)
+            | "&&&" -> i1 &&& i2
+            | "|||" -> i1 ||| i2
+            | "^^^" -> i1 ^^^ i2
             | _ -> failwith ("unknown primitive " + ope)
 
         (res, store2)

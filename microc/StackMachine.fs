@@ -47,6 +47,10 @@ type instr =
     | STOP (* halt the abstract machine       *)
     | BITLEFT  (* BITLEFT                     *)
     | BITRIGHT (* BITRIGHT                    *)
+    | BITNOT   (* BITNOT                      *)
+    | BITAND   (* BITAND                      *)
+    | BITOR    (* BITOR                       *)
+    | BITXOR   (* BITXOR                      *)
 
 (* Generate new distinct labels *)
 
@@ -183,6 +187,18 @@ let CODEBITLEFT = 26
 [<Literal>]
 let CODEBITRIGHT = 27
 
+[<Literal>]
+let CODEBITNOT = 28
+
+[<Literal>]
+let CODEBITAND = 29
+
+[<Literal>]
+let CODEBITOR = 30
+
+[<Literal>]
+let CODEBITXOR = 31
+
 (* Bytecode emission, first pass: build environment that maps
    each label to an integer address in the bytecode.
  *)
@@ -200,6 +216,10 @@ let makelabenv (addr, labenv) instr =
     | MUL -> (addr + 1, labenv)
     | BITLEFT -> (addr + 1, labenv)
     | BITRIGHT -> (addr + 1, labenv)
+    | BITNOT -> (addr + 1, labenv)
+    | BITAND -> (addr + 1, labenv)
+    | BITOR -> (addr + 1, labenv)
+    | BITXOR -> (addr + 1, labenv)
     | DIV -> (addr + 1, labenv)
     | MOD -> (addr + 1, labenv)
     | EQ -> (addr + 1, labenv)
@@ -240,6 +260,10 @@ let rec emitints getlab instr ints =
     | MUL -> CODEMUL :: ints
     | BITLEFT -> CODEBITLEFT :: ints
     | BITRIGHT -> CODEBITRIGHT :: ints
+    | BITNOT -> CODEBITNOT :: ints
+    | BITAND -> CODEBITAND :: ints
+    | BITOR -> CODEBITOR :: ints
+    | BITXOR -> CODEBITXOR :: ints
     | DIV -> CODEDIV :: ints
     | MOD -> CODEMOD :: ints
     | EQ -> CODEEQ :: ints
@@ -298,6 +322,10 @@ let rec decomp ints : instr list =
     | CODEMUL :: ints_rest -> MUL :: decomp ints_rest
     | CODEBITLEFT :: ints_rest -> BITLEFT :: decomp ints_rest
     | CODEBITRIGHT :: ints_rest -> BITRIGHT :: decomp ints_rest
+    | CODEBITNOT :: ints_rest -> BITNOT :: decomp ints_rest
+    | CODEBITAND :: ints_rest -> BITAND :: decomp ints_rest
+    | CODEBITOR :: ints_rest -> BITOR :: decomp ints_rest
+    | CODEBITXOR :: ints_rest -> BITXOR :: decomp ints_rest
     | CODEDIV :: ints_rest -> DIV :: decomp ints_rest
     | CODEMOD :: ints_rest -> MOD :: decomp ints_rest
     | CODEEQ :: ints_rest -> EQ :: decomp ints_rest

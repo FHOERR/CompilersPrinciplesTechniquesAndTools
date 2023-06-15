@@ -53,6 +53,10 @@
 #define STOP 25
 #define BITLEFT 26
 #define BITRIGHT 27
+#define BITNOT 28
+#define BITAND 29
+#define BITOR 30
+#define BITXOR 31
 
 #define STACKSIZE 1000
 
@@ -80,6 +84,18 @@ void printInstruction(int p[], int pc)
   case BITRIGHT:
     printf("BITRIGHT");
     break;
+  case BITNOT:
+      printf("BITNOT");
+      break;
+  case BITAND:
+      printf("BITAND");
+      break;
+  case BITOR:
+      printf("BITOR");
+      break;
+  case BITXOR:
+      printf("BITXOR");
+      break;
   case DIV:
     printf("DIV");
     break;
@@ -237,6 +253,21 @@ int execcode(int p[], int s[], int iargs[], int iargc, int /* boolean */ trace)
         sp--;
     }
     break;
+    case BITNOT:
+      s[sp] = ~s[sp];
+      break;
+    case BITAND:
+      s[sp - 1] = s[sp - 1] & s[sp];
+      sp--;
+      break;
+    case BITOR:
+      s[sp - 1] = s[sp - 1] | s[sp];
+      sp--;
+      break;
+    case BITXOR:
+      s[sp - 1] = s[sp - 1] ^ s[sp];
+      sp--;
+      break;
     case DIV:
       s[sp - 1] = s[sp - 1] / s[sp];
       sp--;

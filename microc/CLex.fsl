@@ -90,14 +90,17 @@ rule Token = parse          // 每个 规则rule 会生成为一个函数，函�
   | ':'             { COLON  }
   | "<<"            { BITLEFT }
   | ">>"            { BITRIGHT }
+  | "~~~"           { BITNOT }
+  | "&&&"           { BITAND }
+  | "|||"           { BITOR }
+  | "^^^"           { BITXOR }
   | '>'             { GT }
   | '<'             { LT }
   | ">="            { GE }
   | "<="            { LE }
-  | "||"            { SEQOR }                     
+  | "||"            { SEQOR }
   | "&&"            { SEQAND }
-  | "&"             { AMP }                     
-  | "!"             { NOT }                     
+  | "!"             { NOT }
   | '('             { LPAR }
   | ')'             { RPAR }
   | '{'             { LBRACE }

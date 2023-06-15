@@ -56,7 +56,7 @@ class Machine
       PRINTI = 22, PRINTC = 23,  //库函数
       LDARGS = 24,  //参数
       STOP = 25,  //停机
-      BITLEFT = 26, BITRIGHT = 27;
+      BITLEFT = 26, BITRIGHT = 27, BITNOT = 28, BITAND = 29, BITOR = 30, BITXOR = 31;
 
     const int STACKSIZE = 10000;
 
@@ -162,6 +162,14 @@ class Machine
                         sp--;
                     }
                     break;
+                case BITNOT:
+                    s[sp] = ~s[sp]; break;
+                case BITAND:
+                    s[sp - 1] = s[sp - 1] & s[sp]; sp--; break;
+                case BITOR:
+                    s[sp - 1] = s[sp - 1] | s[sp]; sp--; break;
+                case BITXOR:
+                    s[sp - 1] = s[sp - 1] ^ s[sp]; sp--; break;
                 case TCALL:
                     {
                         int argc = p[pc++];                // Number of new arguments
@@ -207,6 +215,10 @@ class Machine
             case MUL: return "MUL";
             case BITLEFT: return "BITLEFT";
             case BITRIGHT: return "BITRIGHT";
+            case BITNOT: return "BITNOT";
+            case BITAND: return "BITAND";
+            case BITOR: return "BITOR";
+            case BITXOR: return "BITXOR";
             case DIV: return "DIV";
             case MOD: return "MOD";
             case EQ: return "EQ";

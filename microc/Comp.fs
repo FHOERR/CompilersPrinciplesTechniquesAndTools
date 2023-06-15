@@ -219,8 +219,8 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         let labbegin = newLabel ()
         let labtest = newLabel ()
         let labend = newLabel ()
-        pushbeglist labtest
-        pushendlist labend
+        let tmpLab = pushbeglist labtest
+        let tmpLab = pushendlist labend
         [ GOTO labtest; Label labbegin ]
         @ cStmt body varEnv funEnv
           @ [ Label labtest ]
@@ -229,8 +229,8 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         let labbegin = newLabel ()
         let labtest = newLabel ()
         let labend = newLabel ()
-        pushbeglist labtest
-        pushendlist labend
+        let tmpLab = pushbeglist labtest
+        let tmpLab = pushendlist labend
         [ GOTO labtest; Label labbegin ]
         @ cStmt body varEnv funEnv
           @ [ Label labtest ]
@@ -240,8 +240,8 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         let labtest  = newLabel()
         let labnext = newLabel()
         let labend = newLabel()
-        pushbeglist labnext
-        pushendlist labend
+        let tmpLab = pushbeglist labnext
+        let tmpLab = pushendlist labend
         cExpr e1 varEnv funEnv @ [INCSP -1]
             @ [GOTO labtest; Label labbegin]
                 @ cStmt body varEnv funEnv
@@ -278,8 +278,8 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         let labbegin = newLabel ()
         let labtest = newLabel ()
         let labend = newLabel ()
-        pushbeglist labtest
-        pushendlist labend
+        let tmpLab = pushbeglist labtest
+        let tmpLab = pushendlist labend
         cStmt body varEnv funEnv
             @[ GOTO labtest ]
                 @[ Label labbegin ]
@@ -345,6 +345,7 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         cExpr e1 varEnv funEnv
         @ (match ope with
            | "!" -> [ NOT ]
+           | "~~~" -> [ BITNOT ]
            | "printi" -> [ PRINTI ]
            | "printc" -> [ PRINTC ]
            | _ -> raise (Failure "unknown primitive 1"))
@@ -365,6 +366,9 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
              | "<=" -> [ SWAP; LT; NOT ]
              | "<<" -> [ BITLEFT ]
              | ">>" -> [ BITRIGHT ]
+             | "&&&" -> [ BITAND ]
+             | "|||" -> [ BITOR ]
+             | "^^^" -> [ BITXOR ]
              | _ -> raise (Failure "unknown primitive 2"))
     | Prim3 (ope, e) ->
         (match ope with

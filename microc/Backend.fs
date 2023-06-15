@@ -123,6 +123,29 @@ let rec emitx86 instr =
                     pop r10\n\t\
                     imul r10\n\t\
                     push rax\n\t"
+    | BITNOT ->
+        ";BITNOT\n\t\
+                    pop rax\n\t\
+                    not rax\n\t\
+                    push rax\n\t"
+    | BITAND ->
+        ";BITAND\n\t\
+                    pop r10\n\t\
+                    pop rax\n\t\
+                    and rax,r10\n\t\
+                    push rax\n\t"
+    | BITOR ->
+        ";BITOR\n\t\
+                    pop r10\n\t\
+                    pop rax\n\t\
+                    or  rax,r10\n\t\
+                    push rax\n\t"
+    | BITXOR ->
+        ";BITXOR\n\t\
+                    pop r10\n\t\
+                    pop rax\n\t\
+                    xor rax,r10\n\t\
+                    push rax\n\t"
     | BITLEFT ->
         ";BITLEFT\n\t\
                     pop r10\n\t\
@@ -130,7 +153,7 @@ let rec emitx86 instr =
                     shl rax,r10\n\t\
                     push rax\n\t"
     | BITRIGHT ->
-        ";BITLEFT\n\t\
+        ";BITRIGHT\n\t\
                     pop r10\n\t\
                     pop rax\n\t\
                     shr rax,r10\n\t\
