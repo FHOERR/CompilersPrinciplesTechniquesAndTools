@@ -386,6 +386,11 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
                  @[ DUP;LDI; CSTI -1; ADD;STI]
             | _ -> raise (Failure "unknown primitive 4")
             )
+    | Prim4 (e1, e2, e3) ->
+        cExpr e1 varEnv funEnv
+            @ cExpr e2 varEnv funEnv
+                @ cExpr e3 varEnv funEnv
+                    @ [ TERNARY ]
     | Andalso (e1, e2) ->
         let labend = newLabel ()
         let labfalse = newLabel ()

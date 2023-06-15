@@ -51,6 +51,7 @@ type instr =
     | BITAND   (* BITAND                      *)
     | BITOR    (* BITOR                       *)
     | BITXOR   (* BITXOR                      *)
+    | TERNARY  (* TERNARY                     *)
 
 (* Generate new distinct labels *)
 
@@ -199,6 +200,9 @@ let CODEBITOR = 30
 [<Literal>]
 let CODEBITXOR = 31
 
+[<Literal>]
+let CODETERNARY = 32
+
 (* Bytecode emission, first pass: build environment that maps
    each label to an integer address in the bytecode.
  *)
@@ -218,6 +222,7 @@ let makelabenv (addr, labenv) instr =
     | BITRIGHT -> (addr + 1, labenv)
     | BITNOT -> (addr + 1, labenv)
     | BITAND -> (addr + 1, labenv)
+    | TERNARY -> (addr + 1, labenv)
     | BITOR -> (addr + 1, labenv)
     | BITXOR -> (addr + 1, labenv)
     | DIV -> (addr + 1, labenv)
@@ -264,6 +269,7 @@ let rec emitints getlab instr ints =
     | BITAND -> CODEBITAND :: ints
     | BITOR -> CODEBITOR :: ints
     | BITXOR -> CODEBITXOR :: ints
+    | TERNARY -> CODETERNARY :: ints
     | DIV -> CODEDIV :: ints
     | MOD -> CODEMOD :: ints
     | EQ -> CODEEQ :: ints
@@ -326,6 +332,7 @@ let rec decomp ints : instr list =
     | CODEBITAND :: ints_rest -> BITAND :: decomp ints_rest
     | CODEBITOR :: ints_rest -> BITOR :: decomp ints_rest
     | CODEBITXOR :: ints_rest -> BITXOR :: decomp ints_rest
+    | CODETERNARY :: ints_rest -> TERNARY :: decomp ints_rest
     | CODEDIV :: ints_rest -> DIV :: decomp ints_rest
     | CODEMOD :: ints_rest -> MOD :: decomp ints_rest
     | CODEEQ :: ints_rest -> EQ :: decomp ints_rest

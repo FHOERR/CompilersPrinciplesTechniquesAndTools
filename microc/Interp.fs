@@ -426,7 +426,12 @@ and eval e locEnv gloEnv store : int * store =
                 let res = i1 - 1
                 res, setSto store1 loc res
             | _ -> failwith ("unknown primitive " + ope)
-
+    | Prim4 (e1, e2, e3) ->
+        let (i1, store1) = eval e1 locEnv gloEnv store
+        let (i2, store2) = eval e2 locEnv gloEnv store1
+        let (i3, store3) = eval e3 locEnv gloEnv store2
+        let res = if i1<>0 then i2 else i3
+        (res, store3)
     | Andalso (e1, e2) ->
         let (i1, store1) as res = eval e1 locEnv gloEnv store
 
@@ -442,14 +447,6 @@ and eval e locEnv gloEnv store : int * store =
         else
             eval e2 locEnv gloEnv store1
     | Call (f, es) -> callfun f es locEnv gloEnv store
-
-    | Prim4 ( e1, e2, e3) -> 
-        let (i1, store1) = eval e1 locEnv gloEnv store
-        let (i2, store2) = eval e2 locEnv gloEnv store1
-        let (i3, store3) = eval e2 locEnv gloEnv store2
-        let res = if i1<>0 then i2 else i3
-        (res, store3)
-
 
     | AssignPrim(ope, acc, e) ->
         let (loc, store1) = access acc locEnv gloEnv store

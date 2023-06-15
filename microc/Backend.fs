@@ -158,6 +158,19 @@ let rec emitx86 instr =
                     pop rax\n\t\
                     shr rax,r10\n\t\
                     push rax\n\t"
+    | TERNARY ->
+        ";TERNARY\n\t\
+                    pop rcx\n\t\
+                    pop rbx\n\t\
+                    pop rax\n\t\
+                    cmp rax, 0\n\t\
+                    je lab_false\n\t\
+                    mov rax, rbx\n\t\
+                    jmp lab_end\n\t\
+                    lab_false:\n\t\
+                    mov rax, rcx\n\t\
+                    lab_end:\n\t\
+                    push rax\n\t"
     | DIV ->
         ";DIV\n\t\
                     pop r10\n\t\

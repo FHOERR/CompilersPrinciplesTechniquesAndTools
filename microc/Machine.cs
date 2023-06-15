@@ -56,7 +56,7 @@ class Machine
       PRINTI = 22, PRINTC = 23,  //库函数
       LDARGS = 24,  //参数
       STOP = 25,  //停机
-      BITLEFT = 26, BITRIGHT = 27, BITNOT = 28, BITAND = 29, BITOR = 30, BITXOR = 31;
+      BITLEFT = 26, BITRIGHT = 27, BITNOT = 28, BITAND = 29, BITOR = 30, BITXOR = 31, TERNARY = 32;
 
     const int STACKSIZE = 10000;
 
@@ -162,6 +162,12 @@ class Machine
                         sp--;
                     }
                     break;
+                case TERNARY:
+                    {
+                        s[sp - 2] = (s[sp - 2] == 0 ? s[sp] : s[sp - 1]);
+                        sp--; sp--;
+                    }
+                    break;
                 case BITNOT:
                     s[sp] = ~s[sp]; break;
                 case BITAND:
@@ -219,6 +225,7 @@ class Machine
             case BITAND: return "BITAND";
             case BITOR: return "BITOR";
             case BITXOR: return "BITXOR";
+            case TERNARY: return "TERNARY";
             case DIV: return "DIV";
             case MOD: return "MOD";
             case EQ: return "EQ";

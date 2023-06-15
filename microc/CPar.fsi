@@ -41,6 +41,7 @@ type token =
   | BITOR
   | BITXOR
   | BITAND
+  | TERNARY
   | CHAR
   | ELSE
   | IF
@@ -104,6 +105,7 @@ type tokenId =
     | TOKEN_BITOR
     | TOKEN_BITXOR
     | TOKEN_BITAND
+    | TOKEN_TERNARY
     | TOKEN_CHAR
     | TOKEN_ELSE
     | TOKEN_IF

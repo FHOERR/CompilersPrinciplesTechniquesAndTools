@@ -57,6 +57,7 @@
 #define BITAND 29
 #define BITOR 30
 #define BITXOR 31
+#define TERNARY 32
 
 #define STACKSIZE 1000
 
@@ -98,6 +99,9 @@ void printInstruction(int p[], int pc)
       break;
   case DIV:
     printf("DIV");
+    break;
+  case TERNARY:
+    printf("TERNARY");
     break;
   case MOD:
     printf("MOD");
@@ -251,6 +255,12 @@ int execcode(int p[], int s[], int iargs[], int iargc, int /* boolean */ trace)
             s[sp - 1] = s[sp - 1] / 2;
         }
         sp--;
+    }
+    break;
+    case TERNARY:
+    {
+        s[sp - 2] = (s[sp - 2] == 0 ? s[sp] : s[sp - 1]);
+        sp--; sp--;
     }
     break;
     case BITNOT:
