@@ -51,6 +51,8 @@
 #define PRINTC 23
 #define LDARGS 24
 #define STOP 25
+#define BITLEFT 26
+#define BITRIGHT 27
 
 #define STACKSIZE 1000
 
@@ -71,6 +73,12 @@ void printInstruction(int p[], int pc)
     break;
   case MUL:
     printf("MUL");
+    break;
+  case BITLEFT:
+    printf("BITLEFT");
+    break;
+  case BITRIGHT:
+    printf("BITRIGHT");
     break;
   case DIV:
     printf("DIV");
@@ -213,6 +221,22 @@ int execcode(int p[], int s[], int iargs[], int iargc, int /* boolean */ trace)
       s[sp - 1] = s[sp - 1] * s[sp];
       sp--;
       break;
+    case BITLEFT:
+    {
+        for(int i = 0;i < s[sp];i++){
+            s[sp - 1] = s[sp - 1] * 2;
+        }
+        sp--;
+    }
+    break;
+    case BITRIGHT:
+    {
+        for(int i = 0;i < s[sp];i++){
+            s[sp - 1] = s[sp - 1] / 2;
+        }
+        sp--;
+    }
+    break;
     case DIV:
       s[sp - 1] = s[sp - 1] / s[sp];
       sp--;

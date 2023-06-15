@@ -387,6 +387,20 @@ and eval e locEnv gloEnv store : int * store =
             | "<=" -> if i1 <= i2 then 1 else 0
             | ">=" -> if i1 >= i2 then 1 else 0
             | ">" -> if i1 > i2 then 1 else 0
+            | "<<" ->
+                let bitleftc(num, ltimes) =
+                    let mutable tmpNum = num
+                    for i in 1 .. ltimes do
+                        tmpNum <- tmpNum * 2
+                    tmpNum
+                bitleftc(i1, i2)
+            | ">>" ->
+                let bitrightc(num, ltimes) =
+                    let mutable tmpNum = num
+                    for i in 1 .. ltimes do
+                        tmpNum <- tmpNum / 2
+                    tmpNum
+                bitrightc(i1, i2)
             | _ -> failwith ("unknown primitive " + ope)
 
         (res, store2)

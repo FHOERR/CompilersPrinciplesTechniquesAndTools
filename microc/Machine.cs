@@ -55,7 +55,8 @@ class Machine
       GOTO = 16, IFZERO = 17, IFNZRO = 18, CALL = 19, TCALL = 20, RET = 21,//分支，过程调用 
       PRINTI = 22, PRINTC = 23,  //库函数
       LDARGS = 24,  //参数
-      STOP = 25;  //停机
+      STOP = 25,  //停机
+      BITLEFT = 26, BITRIGHT = 27;
 
     const int STACKSIZE = 10000;
 
@@ -145,6 +146,22 @@ class Machine
                         pc = p[pc];                     //更新 pc ,转移到新地址
                     }
                     break;
+                case BITLEFT:
+                    {
+                        for(int i = 0;i < s[sp];i++){
+                            s[sp - 1] = s[sp - 1] * 2;
+                        }
+                        sp--;
+                    }
+                    break;
+                case BITRIGHT:
+                    {
+                        for(int i = 0;i < s[sp];i++){
+                            s[sp - 1] = s[sp - 1] / 2;
+                        }
+                        sp--;
+                    }
+                    break;
                 case TCALL:
                     {
                         int argc = p[pc++];                // Number of new arguments
@@ -188,6 +205,8 @@ class Machine
             case ADD: return "ADD";
             case SUB: return "SUB";
             case MUL: return "MUL";
+            case BITLEFT: return "BITLEFT";
+            case BITRIGHT: return "BITRIGHT";
             case DIV: return "DIV";
             case MOD: return "MOD";
             case EQ: return "EQ";

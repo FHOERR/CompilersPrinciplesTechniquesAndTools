@@ -35,6 +35,8 @@ type token =
   | TIMESAS
   | DIVAS
   | MODAS
+  | BITLEFT
+  | BITRIGHT
   | CHAR
   | ELSE
   | IF
@@ -92,6 +94,8 @@ type tokenId =
     | TOKEN_TIMESAS
     | TOKEN_DIVAS
     | TOKEN_MODAS
+    | TOKEN_BITLEFT
+    | TOKEN_BITRIGHT
     | TOKEN_CHAR
     | TOKEN_ELSE
     | TOKEN_IF

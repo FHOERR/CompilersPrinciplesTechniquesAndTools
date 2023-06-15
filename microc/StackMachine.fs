@@ -45,6 +45,8 @@ type instr =
     | PRINTC (* print s[sp] as character        *)
     | LDARGS of int (* load command line args on stack *)
     | STOP (* halt the abstract machine       *)
+    | BITLEFT  (* BITLEFT                     *)
+    | BITRIGHT (* BITRIGHT                    *)
 
 (* Generate new distinct labels *)
 
@@ -175,7 +177,11 @@ let CODELDARGS = 24
 [<Literal>]
 let CODESTOP = 25
 
+[<Literal>]
+let CODEBITLEFT = 26
 
+[<Literal>]
+let CODEBITRIGHT = 27
 
 (* Bytecode emission, first pass: build environment that maps
    each label to an integer address in the bytecode.
@@ -192,6 +198,8 @@ let makelabenv (addr, labenv) instr =
     | ADD -> (addr + 1, labenv)
     | SUB -> (addr + 1, labenv)
     | MUL -> (addr + 1, labenv)
+    | BITLEFT -> (addr + 1, labenv)
+    | BITRIGHT -> (addr + 1, labenv)
     | DIV -> (addr + 1, labenv)
     | MOD -> (addr + 1, labenv)
     | EQ -> (addr + 1, labenv)
@@ -230,6 +238,8 @@ let rec emitints getlab instr ints =
     | ADD -> CODEADD :: ints
     | SUB -> CODESUB :: ints
     | MUL -> CODEMUL :: ints
+    | BITLEFT -> CODEBITLEFT :: ints
+    | BITRIGHT -> CODEBITRIGHT :: ints
     | DIV -> CODEDIV :: ints
     | MOD -> CODEMOD :: ints
     | EQ -> CODEEQ :: ints
@@ -286,6 +296,8 @@ let rec decomp ints : instr list =
     | CODEADD :: ints_rest -> ADD :: decomp ints_rest
     | CODESUB :: ints_rest -> SUB :: decomp ints_rest
     | CODEMUL :: ints_rest -> MUL :: decomp ints_rest
+    | CODEBITLEFT :: ints_rest -> BITLEFT :: decomp ints_rest
+    | CODEBITRIGHT :: ints_rest -> BITRIGHT :: decomp ints_rest
     | CODEDIV :: ints_rest -> DIV :: decomp ints_rest
     | CODEMOD :: ints_rest -> MOD :: decomp ints_rest
     | CODEEQ :: ints_rest -> EQ :: decomp ints_rest

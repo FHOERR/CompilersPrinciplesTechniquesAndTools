@@ -363,6 +363,8 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
              | ">=" -> [ LT; NOT ]
              | ">" -> [ SWAP; LT ]
              | "<=" -> [ SWAP; LT; NOT ]
+             | "<<" -> [ BITLEFT ]
+             | ">>" -> [ BITRIGHT ]
              | _ -> raise (Failure "unknown primitive 2"))
     | Prim3 (ope, e) ->
         (match ope with

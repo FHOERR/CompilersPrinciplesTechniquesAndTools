@@ -123,6 +123,18 @@ let rec emitx86 instr =
                     pop r10\n\t\
                     imul r10\n\t\
                     push rax\n\t"
+    | BITLEFT ->
+        ";BITLEFT\n\t\
+                    pop r10\n\t\
+                    pop rax\n\t\
+                    shl rax,r10\n\t\
+                    push rax\n\t"
+    | BITRIGHT ->
+        ";BITLEFT\n\t\
+                    pop r10\n\t\
+                    pop rax\n\t\
+                    shr rax,r10\n\t\
+                    push rax\n\t"
     | DIV ->
         ";DIV\n\t\
                     pop r10\n\t\

@@ -87,13 +87,15 @@ rule Token = parse          // 每个 规则rule 会生成为一个函数，函�
   | "/="            { DIVAS }
   | "%="            { MODAS }
   | '?'             { QST  } 
-  | ':'             { COLON  } 
+  | ':'             { COLON  }
+  | "<<"            { BITLEFT }
+  | ">>"            { BITRIGHT }
   | '>'             { GT }
   | '<'             { LT }
   | ">="            { GE }
   | "<="            { LE }
   | "||"            { SEQOR }                     
-  | "&&"            { SEQAND }                     
+  | "&&"            { SEQAND }
   | "&"             { AMP }                     
   | "!"             { NOT }                     
   | '('             { LPAR }
