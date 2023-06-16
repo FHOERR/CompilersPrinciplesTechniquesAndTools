@@ -345,7 +345,7 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         cExpr e1 varEnv funEnv
         @ (match ope with
            | "!" -> [ NOT ]
-           | "~~~" -> [ BITNOT ]
+           | "~" -> [ BITNOT ]
            | "printi" -> [ PRINTI ]
            | "printc" -> [ PRINTC ]
            | _ -> raise (Failure "unknown primitive 1"))
@@ -366,9 +366,9 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
              | "<=" -> [ SWAP; LT; NOT ]
              | "<<" -> [ BITLEFT ]
              | ">>" -> [ BITRIGHT ]
-             | "&&&" -> [ BITAND ]
-             | "|||" -> [ BITOR ]
-             | "^^^" -> [ BITXOR ]
+             | "&" -> [ BITAND ]
+             | "|" -> [ BITOR ]
+             | "^" -> [ BITXOR ]
              | _ -> raise (Failure "unknown primitive 2"))
     | Prim3 (ope, e) ->
         (match ope with

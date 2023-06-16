@@ -1100,7 +1100,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 169 "CPar.fsy"
-                                                               Prim1("~~~", _2)    
+                                                               Prim1("~", _2)    
                    )
 # 169 "CPar.fsy"
                  : 'gentype_ExprNotAccess));
@@ -1285,7 +1285,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 185 "CPar.fsy"
-                                                               Prim2("&&&", _1, _3)
+                                                               Prim2("&", _1, _3)
                    )
 # 185 "CPar.fsy"
                  : 'gentype_ExprNotAccess));
@@ -1297,7 +1297,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 186 "CPar.fsy"
-                                                               Prim2("|||", _1, _3)
+                                                               Prim2("|", _1, _3)
                    )
 # 186 "CPar.fsy"
                  : 'gentype_ExprNotAccess));
@@ -1309,7 +1309,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 187 "CPar.fsy"
-                                                               Prim2("^^^", _1, _3)
+                                                               Prim2("^", _1, _3)
                    )
 # 187 "CPar.fsy"
                  : 'gentype_ExprNotAccess));
@@ -1430,7 +1430,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 197 "CPar.fsy"
-                                                               Prim4(_1,_3,_5)    
+                                                               Prim4(_1, _3, _5)        
                    )
 # 197 "CPar.fsy"
                  : 'gentype_ExprNotAccess));
